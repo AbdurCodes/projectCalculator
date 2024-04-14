@@ -1,0 +1,61 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(22, 21, 21);
+}
+
+.container{
+    background-color: black;
+    width: 400px;
+    height: 610px;
+    margin: 54px auto;
+    border: 1px solid white;
+}
+
+.display{
+    background-color: rgb(117, 109, 109);
+    width: 97%;
+    height: 20%;
+    margin: 4px auto;
+}
+
+.numsBtn, .operatorsBtn, .restBtn{
+    width: 97px;
+    height: 95px;
+    font-size: 22px;
+    /* flex: 1; */
+}
+
+.zeroBtn{
+    width: 194px;
+}
+
+.buttons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.numsBtn{
+    background-color: rgb(223, 151, 18);
+}
+
+.operatorsBtn{
+    background-color: skyblue;
+}
+
+.allClear{
+    background-color: lightgreen;
+}
+
+.equalTo{
+    background-color: rgb(180, 67, 171);
+}
+
+.plusMinus{
+    background-color: rgb(20, 216, 46);
+}
