@@ -12,12 +12,12 @@ body{
     background-color: black;
     width: 400px;
     height: 610px;
-    margin: 54px auto;
+    margin: 24px auto;
     border: 1px solid white;
 }
 
 .display{
-    background-color: rgb(117, 109, 109);
+    background-color: rgb(158, 154, 154);
     width: 97%;
     height: 20%;
     margin: 4px auto;
@@ -26,7 +26,7 @@ body{
 .numsBtn, .operatorsBtn, .restBtn{
     width: 97px;
     height: 95px;
-    font-size: 22px;
+    font-size: 32px;
     /* flex: 1; */
 }
 
