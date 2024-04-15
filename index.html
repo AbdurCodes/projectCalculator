@@ -10,20 +10,20 @@
     <div class="container">
         <div class="display">0</div>
         <div class="buttons">
-            <button class="restBtn allClear">AC</button>
+            <button onclick="allClearBtnClicked()" class="restBtn allClear">AC</button>
             <button class="restBtn plusMinus">-/+</button>
-            <button class="operatorsBtn">%</button>
-            <button class="operatorsBtn">/</button>
+            <button onclick="operatorBtnClicked('%')" class="operatorsBtn">%</button>
+            <button onclick="operatorBtnClicked('/')" class="operatorsBtn">/</button>
             
             <button onclick="numBtnClicked(7)" class="numsBtn">7</button>
             <button onclick="numBtnClicked(8)" class="numsBtn">8</button>
             <button onclick="numBtnClicked(9)" class="numsBtn">9</button>
-            <button class="operatorsBtn">-</button>
+            <button onclick="operatorBtnClicked('-')" class="operatorsBtn">-</button>
             
             <button onclick="numBtnClicked(4)" class="numsBtn">4</button>
             <button onclick="numBtnClicked(5)" class="numsBtn">5</button>
             <button onclick="numBtnClicked(6)" class="numsBtn">6</button>
-            <button class="operatorsBtn">*</button>
+            <button onclick="operatorBtnClicked('*')" class="operatorsBtn">*</button>
 
             <button onclick="numBtnClicked(1)" class="numsBtn">1</button>
             <button onclick="numBtnClicked(2)" class="numsBtn">2</button>
@@ -32,7 +32,7 @@
 
             <button onclick="numBtnClicked(0)" class="numsBtn zeroBtn">0</button>
             <button class="numsBtn">.</button>
-            <button class="restBtn equalTo">=</button>
+            <button onclick="equalBtnClicked()" class="restBtn equalTo">=</button>
         </div>
     </div>
 
