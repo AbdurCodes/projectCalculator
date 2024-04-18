@@ -3,15 +3,19 @@ const display = document.querySelector('.display');
 function add(num1, num2){
     return num1 + num2;
 }
+
 function subtract(num1, num2){
     return num1 - num2;
 }
+
 function divide(num1, num2){
     return num1 / num2;
 }
+
 function multiply(num1, num2){
     return num1 * num2;
 }
+
 function modulo(num1, num2){
     return num1 % num2;
 }
@@ -24,49 +28,50 @@ function operate(num1, operator, num2){
     else if (operator === '%') return modulo(num1, num2)
 }
 
-let number1 = 0;
-let number2 = 0;
-let operatorEntered = '';
+let number1 = '';
+let number2 = '';
+let flag = true;
 
 function numBtnClicked(num) {
-    // let exclude = ['0', '+', '-', '/', '*', '%'];
-    // if (exclude.includes(display.textContent)) {
-    //     display.textContent = '';
-    // }
-    // display.textContent += num;
-
     if (display.textContent == '0') {
         display.textContent = '';
-        display.textContent += num;
-        number1 = +display.textContent;
-        console.log(number1);
+
     }
     if (['+', '-', '/', '*', '%'].includes(display.textContent)) {
         display.textContent = '';
-        display.textContent += num;
-        number2 = +display.textContent;
-        console.log(number2);
+        flag = false;
     }
 
-    // return display.textContent;
+    if (flag) {
+        display.textContent += num;
+        console.log(display.textContent);
+        number1 = display.textContent;
+        console.log(number1);
+    }
+    else {
+        display.textContent += num;
+        console.log(display.textContent);
+        number2 = display.textContent;
+        console.log(number2);
+    }
 }
-
+    
+let operatorEntered = '';
 function operatorBtnClicked(operator) {
     display.textContent = operator;
     operatorEntered = display.textContent;
-    // return display.textContent;
 }
 
 function equalBtnClicked() {
-    let result = operate(number1, operatorEntered, number2);
+    let result = operate(+number1, operatorEntered, +number2);
     display.textContent = result;
     console.log(result);
 }
 
-
 function allClearBtnClicked() {
     display.textContent = 0;
-    number1 = 0;
-    number2 = 0;
+    number1 = '';
+    number2 = '';
+    flag = true;
     operatorEntered = '';
 }
