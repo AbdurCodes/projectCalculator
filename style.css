@@ -25,7 +25,8 @@ body{
     display: flex;
     justify-content: flex-end;
     padding-right: 12px;
-
+    border: 7px solid black;
+    border-radius: 19px;
 }
 
 .numsBtn, .operatorsBtn, .restBtn{
@@ -48,18 +49,18 @@ body{
     background-color: rgb(223, 151, 18);
 }
 
-.operatorsBtn{
+.operatorsBtn, .plusMinus{
     background-color: skyblue;
 }
 
 .allClear{
-    background-color: lightgreen;
+    background-color: rgb(252, 14, 14);
 }
 
 .equalTo{
-    background-color: rgb(180, 67, 171);
+    background-color: rgb(48, 221, 48);
 }
 
-.plusMinus{
+/* .plusMinus{
     background-color: rgb(20, 216, 46);
-}
+} */
