@@ -4,6 +4,7 @@ let number2 = '';
 let numberFlag = true;
 let operatorFlag = true;
 let secNumFlag = true;
+let zeroFlag = true;
 
 const display = document.querySelector('.display');
 const operatorsBtn = document.querySelectorAll('.operatorsBtn');
@@ -54,13 +55,29 @@ function operate(num1, operator, num2) {
     else if (operator === '%') return modulo(num1, num2)
 }
 
+function limitDisplayDigits(number) {
+    if (String(number).length > 8) {
+        console.log("Display length exceeded: ", String(number).length);
+        display.textContent = 'Error';
+        return;
+    }
+}
+
 function numBtnClicked(num) {
     operatorsBtn.forEach(operatorC => {
         operatorC.style.backgroundColor = 'skyblue';
     });
 
-    if (display.textContent == '0') {
-        display.textContent = '';
+    if (display.textContent == 'Error') {
+        console.log("Plz AC the display.");
+        return;
+    }
+
+    if (zeroFlag) {
+        if (display.textContent == '0') {
+            display.textContent = '';
+            zeroFlag = false;
+        }
     }
 
     if (operatorFlag) {
@@ -74,6 +91,7 @@ function numBtnClicked(num) {
             display.textContent += num;
             number2 = display.textContent;
             console.log('number 2: ', number2);
+            limitDisplayDigits(number2);
         }
         else {
             display.textContent = '';
@@ -86,8 +104,9 @@ function numBtnClicked(num) {
 
     if (numberFlag) {
         display.textContent += num;
-        number1 = +display.textContent;
+        number1 = display.textContent;
         console.log('number 1: ', number1);
+        limitDisplayDigits(number1);
     }
     else {
         if (operatorFlag) {
@@ -122,15 +141,23 @@ function operatorBtnClicked(operator) {
 }
 
 function equalBtnClicked() {
-    if (display.textContent == 0) {
+    if (number2 == '') {
         return display.textContent = "Error";
     }
     let result = operate(+number1, operatorEntered, +number2);
-    console.log('result: ', result);
-    if (result == undefined) {
-        return display.textContent = "Error";
+
+    if (String(result).includes('.')) {
+        result = result.toFixed(6);
     }
+
+    if (String(result).length > 8) {
+        console.log("Result length exceeds max limit: ", String(result).length);
+        display.textContent = 'Error';
+        return;
+    }
+
     display.textContent = result;
+    console.log('result: ', result);
     return result;
 }
 
@@ -141,4 +168,6 @@ function allClearBtnClicked() {
     number2 = '';
     numberFlag = true;
     operatorFlag = true;
+    secNumFlag = true;
+    zeroFlag = true;
 }
