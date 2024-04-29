@@ -6,9 +6,12 @@ let operatorFlag = true;
 let secNumFlag = true;
 let zeroFlag = true;
 
-const display = document.querySelector('.display');
-const operatorsBtn = document.querySelectorAll('.operatorsBtn');
-const numsBtn = document.querySelectorAll('.numsBtn');
+let decimalBtn = document.querySelector('.decimalBtn');
+let display = document.querySelector('.display');
+let operatorsBtn = document.querySelectorAll('.operatorsBtn');
+operatorsBtn = Array.from(operatorsBtn);
+let numsBtn = document.querySelectorAll('.numsBtn');
+let equalTo = document.querySelector('.equalTo');
 
 // digits change color upon click
 numsBtn.forEach(numBtn => {
@@ -18,13 +21,6 @@ numsBtn.forEach(numBtn => {
     numBtn.addEventListener('mouseup', function () {
         numBtn.style.backgroundColor = 'rgb(223, 151, 18)';
     })
-});
-
-// operator changes color upon click
-operatorsBtn.forEach(operatorC => {
-    operatorC.addEventListener('click', function () {
-        operatorC.style.backgroundColor = 'rgb(92, 112, 241)';
-    });
 });
 
 function add(num1, num2) {
@@ -64,6 +60,11 @@ function limitDisplayDigits(number) {
 }
 
 function numBtnClicked(num) {
+
+    if (num === '.') {
+        decimalBtn.setAttribute('disabled', '');
+    }
+
     operatorsBtn.forEach(operatorC => {
         operatorC.style.backgroundColor = 'skyblue';
     });
@@ -124,16 +125,25 @@ function multipleOperatorsBtnClicked() {
     console.log('multipleOperatorsBtnClicked: ', number1);
 }
 
-function operatorBtnClicked(operator) {
+
+function operatorBtnClicked(operator, index) {
+    decimalBtn.removeAttribute("disabled");
+
     if (operatorFlag) {
         display.textContent = operator;
         operatorEntered = display.textContent;
+        operatorsBtn.forEach(operatorC => {
+            operatorC.style.backgroundColor = 'skyblue';
+        });
+        operatorsBtn[index].style.backgroundColor = 'rgb(92, 112, 241)';
         console.log('operatorEntered: ', operatorEntered);
     }
     else {
         if (secNumFlag) {
+            equalTo.setAttribute('disabled', '');
             multipleOperatorsBtnClicked();
             operatorEntered = operator;
+            operatorsBtn[index].style.backgroundColor = 'rgb(92, 112, 241)';
             console.log('operatorEntered: ', operatorEntered);
             secNumFlag = false;
         }
@@ -147,7 +157,7 @@ function equalBtnClicked() {
     let result = operate(+number1, operatorEntered, +number2);
 
     if (String(result).includes('.')) {
-        result = result.toFixed(6);
+        result = +result.toFixed(6);
     }
 
     if (String(result).length > 8) {
@@ -170,4 +180,9 @@ function allClearBtnClicked() {
     operatorFlag = true;
     secNumFlag = true;
     zeroFlag = true;
+    decimalBtn.removeAttribute("disabled");
+    equalTo.removeAttribute("disabled");
+    operatorsBtn.forEach(operatorC => {
+        operatorC.style.backgroundColor = 'skyblue';
+    });
 }
