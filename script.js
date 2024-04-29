@@ -5,6 +5,8 @@ let numberFlag = true;
 let operatorFlag = true;
 let secNumFlag = true;
 let zeroFlag = true;
+let result = '';
+let signFlag = true;
 
 let decimalBtn = document.querySelector('.decimalBtn');
 let display = document.querySelector('.display');
@@ -93,6 +95,7 @@ function numBtnClicked(num) {
             number2 = display.textContent;
             console.log('number 2: ', number2);
             limitDisplayDigits(number2);
+            
         }
         else {
             display.textContent = '';
@@ -119,10 +122,35 @@ function numBtnClicked(num) {
     }
 }
 
+function signBtnClicked() {
+    if (numberFlag) {
+        number1 = -(number1);
+        display.textContent = number1;
+        console.log('signBtnClicked');
+    }
+    else {
+
+        if (signFlag) {
+            number2 = -(number2);
+            display.textContent = number2;
+            console.log('signBtnClicked');
+            
+        }
+        else {
+            result = -(result);
+            number1 = result;
+            display.textContent = result;
+            console.log('signBtnClicked');
+        }
+    }
+}
+
+
 function multipleOperatorsBtnClicked() {
     display.textContent = equalBtnClicked();
     number1 = +display.textContent;
     console.log('multipleOperatorsBtnClicked: ', number1);
+    signFlag = false;
 }
 
 
@@ -154,7 +182,7 @@ function equalBtnClicked() {
     if (number2 == '') {
         return display.textContent = "Error";
     }
-    let result = operate(+number1, operatorEntered, +number2);
+    result = operate(+number1, operatorEntered, +number2);
 
     if (String(result).includes('.')) {
         result = +result.toFixed(6);
@@ -180,6 +208,7 @@ function allClearBtnClicked() {
     operatorFlag = true;
     secNumFlag = true;
     zeroFlag = true;
+    signFlag = true;
     decimalBtn.removeAttribute("disabled");
     equalTo.removeAttribute("disabled");
     operatorsBtn.forEach(operatorC => {

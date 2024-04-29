@@ -49,7 +49,7 @@ body{
     background-color: rgb(223, 151, 18);
 }
 
-.operatorsBtn, .plusMinus{
+.operatorsBtn, .plusMinusBtn{
     background-color: skyblue;
 }
 
@@ -60,7 +60,3 @@ body{
 .equalTo{
     background-color: rgb(48, 221, 48);
 }
-
-/* .plusMinus{
-    background-color: rgb(20, 216, 46);
-} */
