@@ -29,14 +29,10 @@ body{
     border-radius: 19px;
 }
 
-.numsBtn, .operatorsBtn, .restBtn{
+.numsBtn, .operatorsBtn, .restBtn, .backspaceBtn{
     width: 97px;
     height: 95px;
     font-size: 32px;
-}
-
-.zeroBtn{
-    width: 194px;
 }
 
 .buttons{
@@ -49,12 +45,20 @@ body{
     background-color: rgb(223, 151, 18);
 }
 
-.operatorsBtn, .plusMinusBtn{
+.operatorsBtn, .backspaceBtn{
     background-color: skyblue;
+}
+
+.plusMinusBtn{
+    background-color: rgb(75, 30, 236);
 }
 
 .allClear{
     background-color: rgb(252, 14, 14);
+}
+
+.backspaceBtn{
+    background-color: rgb(219, 116, 116);
 }
 
 .equalTo{
