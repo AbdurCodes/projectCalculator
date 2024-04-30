@@ -1,0 +1,1 @@
+An assignment from The Odin Project (TOP). This is a mini calculator project, open to improvement. Plz go through the code if possible and suggest me your feedback, I will be more than happy to update the code for the better. Plz initiate PR for your valuable suggestions. Thanks. 
