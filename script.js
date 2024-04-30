@@ -1,21 +1,12 @@
 let number1 = '';
-// number1 = +number1;
 let operatorEntered = '';
 let number2 = '';
-// number2 = +number2;
 let numberFlag = true;
 let operatorFlag = true;
 let secNumFlag = true;
 let zeroFlag = true;
 let result = '';
 let signFlag = true;
-
-// if (number1.length > 1 || number2.length > 1) {
-//     if (number1[0] == '0' || number2[0] == '0') {
-//         number1.slice(1);
-//         // number2.slice(1);
-//     }
-// }
 
 let decimalBtn = document.querySelector('.decimalBtn');
 let display = document.querySelector('.display');
@@ -24,6 +15,7 @@ operatorsBtn = Array.from(operatorsBtn);
 let numsBtn = document.querySelectorAll('.numsBtn');
 let equalTo = document.querySelector('.equalTo');
 let backspaceBtn = document.querySelector('.backspaceBtn');
+let plusMinusBtn = document.querySelector('.plusMinusBtn');
 
 // digits change color upon click
 numsBtn.forEach(numBtn => {
@@ -34,6 +26,54 @@ numsBtn.forEach(numBtn => {
         numBtn.style.backgroundColor = 'rgb(223, 151, 18)';
     })
 });
+
+
+let keyboardEvents = (e) => {
+    // console.log(e.key);
+    // Handle numeric keys
+    if ((e.key >= '0' && e.key <= '9') || e.key == '.') {
+        numBtnClicked(e.key);
+    }
+
+    // Handle operator keys
+    else if (e.key === '%') {
+        operatorBtnClicked(`${e.key}`, 0);
+    }
+    else if (e.key === '/') {
+        operatorBtnClicked(`${e.key}`, 1);
+    }
+    else if (e.key === '-') {
+        operatorBtnClicked(`${e.key}`, 2);
+    }
+    else if (e.key === '*') {
+        operatorBtnClicked(`${e.key}`, 3);
+    }
+    else if (e.key === '+') {
+        operatorBtnClicked(`${e.key}`, 4);
+    }
+
+    else if (e.key === '_') {
+        signBtnClicked();
+    }
+
+    // Handle Enter key for calculation
+    else if (e.key === '=') {
+        equalBtnClicked();
+    }
+
+    else if (e.key === 'Escape') {
+        allClearBtnClicked();
+    }
+}
+
+let backspaceEvent = (e) => {
+    if (e.key === 'Backspace') {
+        backspaceBtnClicked();
+    }
+}
+
+document.addEventListener('keydown', keyboardEvents);
+document.addEventListener('keydown', backspaceEvent);
 
 
 function add(num1, num2) {
@@ -72,7 +112,7 @@ function operate(num1, operator, num2) {
 
 function limitDisplayDigits(number) {
     if (String(number).length > 8) {
-        console.log("Display length exceeded: ", String(number).length);
+        // console.log("Display length exceeded: ", String(number).length);
         display.textContent = 'Error';
         return;
     }
@@ -80,9 +120,13 @@ function limitDisplayDigits(number) {
 
 
 function numBtnClicked(num) {
+    // if (result) {
+    //     result = '';
+    //     allClearBtnClicked();
+    // }
 
     backspaceBtn.removeAttribute('disabled');
-    
+    // plusMinusBtn.removeAttribute('disabled');
 
     if (num === '.') {
         decimalBtn.setAttribute('disabled', '');
@@ -92,11 +136,6 @@ function numBtnClicked(num) {
         operatorC.style.backgroundColor = 'skyblue';
     });
 
-    if (display.textContent == 'Error') {
-        console.log("Plz AC the display.");
-        return;
-    }
-
     if (zeroFlag) {
         if (display.textContent == '0') {
             display.textContent = '';
@@ -105,7 +144,7 @@ function numBtnClicked(num) {
     }
 
     if (operatorFlag) {
-        
+
         if (['+', '-', '/', '*', '%'].includes(display.textContent)) {
             display.textContent = '';
             numberFlag = false;
@@ -167,21 +206,21 @@ function signBtnClicked() {
     if (numberFlag) {
         number1 = -(number1);
         display.textContent = number1;
-        console.log('signBtnClicked');
+        // console.log('signBtnClicked');
     }
     else {
 
         if (signFlag) {
             number2 = -(number2);
             display.textContent = number2;
-            console.log('signBtnClicked');
+            // console.log('signBtnClicked');
 
         }
         else {
             result = -(result);
             number1 = result;
             display.textContent = result;
-            console.log('signBtnClicked');
+            // console.log('signBtnClicked');
         }
     }
 }
@@ -190,7 +229,7 @@ function signBtnClicked() {
 function multipleOperatorsBtnClicked() {
     display.textContent = equalBtnClicked();
     number1 = +display.textContent;
-    console.log('multipleOperatorsBtnClicked: ', number1);
+    // console.log('multipleOperatorsBtnClicked: ', number1);
     signFlag = false;
 }
 
@@ -199,13 +238,14 @@ function operatorBtnClicked(operator, index) {
     decimalBtn.removeAttribute("disabled");
 
     if (operatorFlag) {
+        backspaceBtn.setAttribute('disabled', '');
         display.textContent = operator;
         operatorEntered = display.textContent;
         operatorsBtn.forEach(operatorC => {
             operatorC.style.backgroundColor = 'skyblue';
         });
         operatorsBtn[index].style.backgroundColor = 'rgb(92, 112, 241)';
-        console.log('operatorEntered: ', operatorEntered);
+        // console.log('operatorEntered: ', operatorEntered);
     }
     else {
         if (secNumFlag) {
@@ -215,7 +255,7 @@ function operatorBtnClicked(operator, index) {
             operatorEntered = operator;
             operatorsBtn[index].style.backgroundColor = 'rgb(92, 112, 241)';
             decimalBtn.removeAttribute('disabled');
-            console.log('operatorEntered: ', operatorEntered);
+            // console.log('operatorEntered: ', operatorEntered);
             secNumFlag = false;
         }
     }
@@ -224,6 +264,8 @@ function operatorBtnClicked(operator, index) {
 
 function equalBtnClicked() {
     backspaceBtn.setAttribute('disabled', '');
+    document.removeEventListener('keydown', backspaceEvent);
+    plusMinusBtn.setAttribute('disabled', '');
     if (number2 == '') {
         return display.textContent = "Error";
     }
@@ -234,7 +276,7 @@ function equalBtnClicked() {
     }
 
     if (String(result).length > 8) {
-        console.log("Result length exceeds max limit: ", String(result).length);
+        // console.log("Result length exceeds max limit: ", String(result).length);
         display.textContent = 'Error';
         return;
     }
@@ -242,7 +284,6 @@ function equalBtnClicked() {
     display.textContent = result;
     console.log('result: ', result);
     if (secNumFlag) {
-
         decimalBtn.setAttribute('disabled', '');
     }
     return result;
@@ -262,6 +303,8 @@ function allClearBtnClicked() {
     decimalBtn.removeAttribute("disabled");
     equalTo.removeAttribute("disabled");
     backspaceBtn.removeAttribute('disabled');
+    plusMinusBtn.removeAttribute('disabled');
+    document.addEventListener('keydown', backspaceEvent);
     operatorsBtn.forEach(operatorC => {
         operatorC.style.backgroundColor = 'skyblue';
     });
@@ -269,9 +312,6 @@ function allClearBtnClicked() {
 
 
 function backspaceBtnClicked() {
-    // if (!display.textContent.includes('.')) {
-    //     decimalBtn.removeAttribute("disabled");
-    // }
     if (display.textContent.length > 0) {
         display.textContent = display.textContent.substring(0, display.textContent.length - 1);
         display.textContent = +display.textContent;
@@ -280,20 +320,17 @@ function backspaceBtnClicked() {
             if (!number1.includes('.')) {
                 decimalBtn.removeAttribute("disabled");
             }
-            // display.textContent = number1;
-            console.log('number 1: ', number1);
+            // console.log('number 1: ', number1);
         }
         else {
             number2 = display.textContent;
             if (!number2.includes('.')) {
                 decimalBtn.removeAttribute("disabled");
             }
-            // display.textContent = number2;
-            console.log('number 2: ', number2);
+            // console.log('number 2: ', number2);
         }
     }
     else {
         display.textContent = '0';
-        // allClearBtnClicked();
     }
 }
